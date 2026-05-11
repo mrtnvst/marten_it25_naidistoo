@@ -38,8 +38,14 @@ python task_02.py .jpg
 ```
 
 ---
+## Tõrkeotsing ja süsteemidevaheline tugi
 
-### PowerShell (Moodul)
+### Moodul ei lae (CommandNotFound)
+Kui süsteem ei leia käske `Task01` või `Task02`, kasuta sundlaadimist:
+```powershell
+Import-Module ./TwoTask/TwoTask.psd1 -Force
+---
+ PowerShell (Moodul)
 
 PowerShelli lahendus on üles ehitatud korduvkasutatava moodulina.
 
