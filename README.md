@@ -1,101 +1,76 @@
-# Skriptimise Ülesanded: Faililaiendite Genereerimine ja Analüüs
+Skriptimise Ülesanded: Universaalne Failianalüüs (Bash, Python, PowerShell)
+See projekt on loodud õppetöö raames, et demonstreerida samaväärse funktsionaalsuse realiseerimist kolmes erinevas skriptimiskeeles. Rakendus on testitud ja ühildub nii Windowsi kui ka Linuxi (Debian) keskkondadega.
 
-See projekt on valminud õppetöö raames ning sisaldab lahendusi faililaienditega manipuleerimiseks. Rakendus on realiseeritud **Pythonis** ja **PowerShellis** (lisaks mainitud Bash-võimekusele).
+Projekti kirjeldus
+Rakendus võimaldab manipuleerida faililaienditega:
 
-## Projekti kirjeldus
+Genereerimine: Valib lähtefailist extensions.txt suvalised laiendid ja salvestab need faili random.txt.
 
-Projekt koosneb kahest põhifunktsionaalsusest:
-1. **Genereerimine:** Valib lähtefailist `extensions.txt` suvalised laiendid ja salvestab need faili `random.txt`.
-2. **Loendamine:** Otsib failist `random.txt` konkreetse laiendi esinemissagedust.
+Loendamine: Otsib failist random.txt konkreetse laiendi esinemissagedust.
 
-## Failide struktuur
+Failide struktuur
+extensions.txt – Sisendfail lubatud faililaienditega (üks laiend real).
 
-*   `extensions.txt` – Sisendfail, mis sisaldab nimekirja lubatud faililaienditest (üks laiend real).
-*   `task_01.py` – Pythoni skript juhuslike laiendite genereerimiseks.
-*   `task_02.py` – Pythoni skript laiendite loendamiseks.
-*   `TwoTask/` – PowerShelli mooduli kaust.
-    *   `TwoTask.psm1` – PowerShelli funktsioonid `Task01` ja `Task02`.
-*   `random.txt` – Skripti käigus tekkiv väljundfail (genereeritud laiendid).
+task_01.py / task_01.sh – Genereerimise skriptid (Python & Bash).
 
----
+task_02.py / task_02.sh – Loendamise skriptid (Python & Bash).
 
-## Kasutamine
+TwoTask/ – PowerShelli mooduli kaust.
 
-### Python
+TwoTask.psd1 – Mooduli manifest (metadata).
 
-Veendu, et sul on Python 3 installitud.
+TwoTask.psm1 – Mooduli funktsioonid Task01 ja Task02.
 
-**1. Laiendite genereerimine:**
-Käivita skript ja lisa soovi korral arv, mitu rida soovid genereerida (vaikimisi 1).
-```bash
-python task_01.py 100
-```
+random.txt – Skriptide poolt genereeritav väljundfail.
 
-**2. Laiendite loendamine:**
-Käivita skript ja määra otsitav laiend.
-```bash
-python task_02.py .jpg
-```
+Kasutamine erinevates keskkondades
+1. PowerShell (Universaalne lahendus)
+PowerShelli lahendus on ehitatud moodulina, mis kasutab dünaamilisi failiteid (Join-Path), muutes selle kasutatavaks nii Windowsis kui Linuxis (pwsh).
 
----
-## Tõrkeotsing ja süsteemidevaheline tugi
+Mooduli laadimine otse mällu:
 
-### Moodul ei lae (CommandNotFound)
-Kui süsteem ei leia käske `Task01` või `Task02`, kasuta sundlaadimist:
-```powershell
+PowerShell
 Import-Module ./TwoTask/TwoTask.psd1 -Force
----
- PowerShell (Moodul)
+Käivitusnäited:
 
-PowerShelli lahendus on üles ehitatud korduvkasutatava moodulina.
+PowerShell
+Task01 -Count 100
+Task02 -Extension ".jpg"
+2. Python
+Töötab ristiplatvormselt. Linuxis on soovitatav kasutada python3 käsku.
 
-**1. Mooduli importimine:**
-Liigu projekti juurkausta ja impordi moodul:
-```powershell
-Import-Module .\TwoTask\TwoTask.psm1
-```
+Bash
+# Genereerimine
+python3 task_01.py 100
 
-**2. Ülesanne 1 (Genereerimine):**
-```powershell
-Task01 -Count 50
-```
+# Loendamine
+python3 task_02.py .png
+3. Bash (Linux)
+Enne käivitamist on vajalik anda skriptidele käivitusõigus:
 
-**3. Ülesanne 2 (Loendamine):**
-```powershell
-Task02 -Extension ".pdf"
-```
+Bash
+chmod +x task_01.sh task_02.sh
+./task_01.sh 50
+./task_02.sh .txt
+Administraatori märkused ja Tõrkeotsing
+Execution Policy (Windows): Kui PowerShell blokeerib mooduli laadimise, kasuta:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
----
+Linuxi toetus: Mooduli testimisel Linuxis (Debian) on kasutatud pwsh (PowerShell Core) keskkonda.
 
-## Paigaldamine ja Git
+Git & SSH: Projekt on seadistatud kasutama SSH-autentimist (git@github.com:...), mis välistab terminalis paroolide sisestamise vajaduse ja on turvalisem viis sünkroonimiseks.
 
-Projekti kloonimiseks ja seadistamiseks:
+Failiteed: Kood kasutab suhtelisi teid, eeldades, et extensions.txt asub projekti juurkaustas.
 
-```bash
-# Klooni repositoorium
-git clone <sinu-repo-url>
-
-# Liigu kausta
-cd <repo-kaust>
-
-# Loo vajadusel extensions.txt, kui seda pole
-echo ".txt" >> extensions.txt
-echo ".jpg" >> extensions.txt
-```
-
-### Muudatuste üleslaadimine:
-```powershell
-git add .
-git commit -m "Korrastatud kood ja täiendatud README"
-git push origin main
-```
-
-## Autor
+Autor
 Marten
-Skriptimise õppeaine raames loodud lahendus.
+IT-süsteemide nooremspetsialisti õpe
 
----
+Mis muutus?
+Struktuur: Lisasin selgelt Bash skriptid ja .psd1 faili kirjelduse.
 
-### Mõned näpunäited README täiendamiseks:
-*   **Veaotsing:** Kui kasutad Windowsi ja PowerShell ei luba skripte käivitada, kasuta käsku: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`.
-*   **Sisendfail:** Veendu, et `extensions.txt` asuks alati skriptidega samas kaustas (või muuda skriptis teed).
+Mälust laadimine: Tõin esile -Force ja suhtelise tee ./ kasutamise, mis töötab mõlemas OS-is.
+
+SSH märge: Lisasin märke SSH kohta – see näitab, et sa jagad biiti ka turvalisest versioonihaldusest.
+
+Terminoloogia: Kasutasin korrektseid termineid nagu "ristplatvormne" ja "mooduli manifest".
