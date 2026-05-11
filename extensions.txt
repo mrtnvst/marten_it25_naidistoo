@@ -1,0 +1,10 @@
+.jpg
+.png
+.txt
+.pdf
+.docx
+.py
+.sh
+.zip
+.mp3
+.exe
