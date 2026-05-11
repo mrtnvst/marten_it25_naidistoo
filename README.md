@@ -1,7 +1,3 @@
-See on väga hea põhi! Kuna sa oled nüüdseks läbi teinud ka Linuxi testimise, SSH seadistamise ja automaatse mälust laadimise, siis tasub README-sse lisada just need "profi" elemendid. See näitab õpetajale, et sa ei teinud lihtsalt koodi valmis, vaid mõtlesid ka sellele, kuidas seda erinevates keskkondades mugavalt hallata.
-
-Siin on uuendatud versioon, mis on struktureeritum, sisaldab Linuxi/Windowsi erisusi ja SSH näpunäidet.
-
 Skriptimise Ülesanded: Universaalne Failianalüüs (Bash, Python, PowerShell)
 See projekt on loodud õppetöö raames, et demonstreerida samaväärse funktsionaalsuse realiseerimist kolmes erinevas skriptimiskeeles. Rakendus on testitud ja ühildub nii Windowsi kui ka Linuxi (Debian) keskkondadega.
 
